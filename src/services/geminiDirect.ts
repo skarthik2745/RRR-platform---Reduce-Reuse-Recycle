@@ -1,4 +1,4 @@
-const API_KEY = 'AIzaSyAo51Iq95IyOZMfh1G1c2mcT987ts3SUmQ';
+const API_KEY = 'key';
 
 export async function makeRequest(prompt: string) {
   const url = `https://generativelanguage.googleapis.com/v1/models/gemini-pro:generateContent?key=${API_KEY}`;
