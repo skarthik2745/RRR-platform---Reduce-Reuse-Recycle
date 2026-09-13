@@ -19,6 +19,8 @@ interface CarbonData {
   washingHours: number;
 }
 
+const groqApiKey = import.meta.env.VITE_GROQ_API_KEY || 'dummy-groq-api-key-for-demo';
+
 export const CarbonCalculator: React.FC = () => {
   const [formData, setFormData] = useState<CarbonData>({
     electricity: 0,
@@ -93,7 +95,7 @@ export const CarbonCalculator: React.FC = () => {
       const response = await fetch('https://api.groq.com/openai/v1/chat/completions', {
         method: 'POST',
         headers: {
-          'Authorization': `Bearer ${import.meta.env.VITE_GROQ_API_KEY}`,
+          'Authorization': `Bearer ${groqApiKey}`,
           'Content-Type': 'application/json'
         },
         body: JSON.stringify({

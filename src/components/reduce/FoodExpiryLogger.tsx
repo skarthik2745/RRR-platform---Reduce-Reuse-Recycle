@@ -11,6 +11,8 @@ interface FoodItem {
   status: 'fresh' | 'expiring' | 'expired';
 }
 
+const groqApiKey = import.meta.env.VITE_GROQ_API_KEY || 'dummy-groq-api-key-for-demo';
+
 const AIWastePreventionTips: React.FC<{ expiredItems: FoodItem[], expiringItems: FoodItem[] }> = ({ expiredItems, expiringItems }) => {
   const [tips, setTips] = useState<string[]>([]);
   const [loading, setLoading] = useState(false);
@@ -21,7 +23,7 @@ const AIWastePreventionTips: React.FC<{ expiredItems: FoodItem[], expiringItems:
       const response = await fetch('https://api.groq.com/openai/v1/chat/completions', {
         method: 'POST',
         headers: {
-          'Authorization': `Bearer ${import.meta.env.VITE_GROQ_API_KEY}`,
+          'Authorization': `Bearer ${groqApiKey}`,
           'Content-Type': 'application/json'
         },
         body: JSON.stringify({
@@ -116,7 +118,7 @@ const AIFoodWasteAnalysis: React.FC<{ foodItems: FoodItem[] }> = ({ foodItems })
       const response = await fetch('https://api.groq.com/openai/v1/chat/completions', {
         method: 'POST',
         headers: {
-          'Authorization': `Bearer ${import.meta.env.VITE_GROQ_API_KEY}`,
+          'Authorization': `Bearer ${groqApiKey}`,
           'Content-Type': 'application/json'
         },
         body: JSON.stringify({

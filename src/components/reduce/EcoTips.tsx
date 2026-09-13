@@ -10,6 +10,8 @@ interface EcoTip {
   color: string;
 }
 
+const groqApiKey = import.meta.env.VITE_GROQ_API_KEY || 'dummy-groq-api-key-for-demo';
+
 const AIEcoTips: React.FC = () => {
   const [aiTips, setAiTips] = useState<string[]>([]);
   const [loading, setLoading] = useState(false);
@@ -21,7 +23,7 @@ const AIEcoTips: React.FC = () => {
       const response = await fetch('https://api.groq.com/openai/v1/chat/completions', {
         method: 'POST',
         headers: {
-          'Authorization': `Bearer ${import.meta.env.VITE_GROQ_API_KEY}`,
+          'Authorization': `Bearer ${groqApiKey}`,
           'Content-Type': 'application/json'
         },
         body: JSON.stringify({

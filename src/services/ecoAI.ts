@@ -1,17 +1,15 @@
 import Groq from "groq-sdk";
 
-const apiKey = import.meta.env.VITE_GROQ_API_KEY?.trim();
+const apiKey = (import.meta.env.VITE_GROQ_API_KEY || "dummy-groq-api-key-for-demo").trim();
 
-const groq = apiKey
-  ? new Groq({
-      apiKey,
-      dangerouslyAllowBrowser: true,
-    })
-  : null;
+const groq = new Groq({
+  apiKey,
+  dangerouslyAllowBrowser: true,
+});
 
 export async function generateResponse(userMessage: string): Promise<string> {
-  if (!apiKey || !groq) {
-    return "EcoAI is unavailable right now because the Groq API key is not configured. Add VITE_GROQ_API_KEY in your deployment environment to enable AI responses.";
+  if (!import.meta.env.VITE_GROQ_API_KEY) {
+    return "EcoAI is running in demo mode because no Groq API key is configured. Add VITE_GROQ_API_KEY in deployment settings to enable live AI responses.";
   }
 
   try {
