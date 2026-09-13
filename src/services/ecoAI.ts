@@ -1,11 +1,19 @@
 import Groq from "groq-sdk";
 
-const groq = new Groq({
-  apiKey: import.meta.env.VITE_GROQ_API_KEY,
-  dangerouslyAllowBrowser: true
-});
+const apiKey = import.meta.env.VITE_GROQ_API_KEY?.trim();
+
+const groq = apiKey
+  ? new Groq({
+      apiKey,
+      dangerouslyAllowBrowser: true,
+    })
+  : null;
 
 export async function generateResponse(userMessage: string): Promise<string> {
+  if (!apiKey || !groq) {
+    return "EcoAI is unavailable right now because the Groq API key is not configured. Add VITE_GROQ_API_KEY in your deployment environment to enable AI responses.";
+  }
+
   try {
     const chatCompletion = await groq.chat.completions.create({
       messages: [
